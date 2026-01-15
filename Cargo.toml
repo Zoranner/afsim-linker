@@ -1,0 +1,47 @@
+[package]
+name = "afsim-linker"
+version = "0.1.0"
+edition = "2021"
+authors = ["KimoTech"]
+description = "AFSim Linker - A cross-platform desktop application with URL Scheme support for AFSim"
+license = "MIT"
+
+[lib]
+name = "afsim_linker"
+path = "src/lib.rs"
+
+[[bin]]
+name = "afsim-linker"
+path = "src/main.rs"
+
+[dependencies]
+# GUI 界面
+egui = "0.29"
+eframe = { version = "0.29", default-features = false, features = [
+    "glow",          # Use the glow rendering backend
+] }
+rfd = "0.15"         # 文件对话框
+
+# 错误处理
+anyhow = "1.0"
+
+# 日志
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# 序列化
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+urlencoding = "2.1"
+
+[target.'cfg(windows)'.dependencies]
+winreg = "0.52"
+
+[profile.dev]
+opt-level = 1
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+
