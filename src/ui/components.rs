@@ -122,35 +122,21 @@ fn render_executor_config_section(ui: &mut egui::Ui, app: &mut ClientLinkerApp) 
 
     // 可执行程序路径
     ui.label("可执行程序路径：");
-    ui.horizontal(|ui| {
-        let config = app.executor_config_mut();
-        let text_edit = egui::TextEdit::singleline(&mut config.executable_path)
-            .hint_text("例如：C:\\AFSim\\afsim.exe");
-        ui.add_sized([ui.available_width() - 80.0, 20.0], text_edit);
-
-        if ui.button("📁 浏览").clicked() {
-            if let Some(path) = rfd::FileDialog::new().pick_file() {
-                config.executable_path = path.display().to_string();
-            }
-        }
-    });
+    ui.add(
+        egui::TextEdit::singleline(&mut app.executor_config_mut().executable_path)
+            .hint_text("例如：C:\\AFSim\\afsim.exe")
+            .desired_width(f32::INFINITY),
+    );
 
     ui.add_space(10.0);
 
     // 脚本基础路径
     ui.label("脚本基础路径：");
-    ui.horizontal(|ui| {
-        let config = app.executor_config_mut();
-        let text_edit = egui::TextEdit::singleline(&mut config.script_base_path)
-            .hint_text("例如：D:\\projects\\scenarios");
-        ui.add_sized([ui.available_width() - 80.0, 20.0], text_edit);
-
-        if ui.button("📁 浏览").clicked() {
-            if let Some(path) = rfd::FileDialog::new().pick_folder() {
-                config.script_base_path = path.display().to_string();
-            }
-        }
-    });
+    ui.add(
+        egui::TextEdit::singleline(&mut app.executor_config_mut().script_base_path)
+            .hint_text("例如：D:\\projects\\scenarios")
+            .desired_width(f32::INFINITY),
+    );
 
     ui.add_space(10.0);
 
